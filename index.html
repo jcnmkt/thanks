@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coral: #F06449;
+      --amber: #F5A623;
+      --teal: #5BC8C1;
+      --navy: #2D2B6E;
+      --soft-bg: #FFF8F5;
+      --text: #2a2a2a;
+      --muted: #777;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--soft-bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Animated background blobs */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      z-index: 0;
+      animation: float 8s ease-in-out infinite;
+    }
+    .bg-blob-1 { width: 500px; height: 500px; background: var(--coral); top: -150px; left: -150px; animation-delay: 0s; }
+    .bg-blob-2 { width: 400px; height: 400px; background: var(--teal); bottom: -100px; right: -100px; animation-delay: 3s; }
+    .bg-blob-3 { width: 300px; height: 300px; background: var(--amber); top: 40%; left: 60%; animation-delay: 5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      width: 90%;
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .left {
+      flex: 1;
+      min-width: 280px;
+      text-align: left;
+    }
+
+    /* Confetti badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--coral);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      animation: popIn 0.6s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.6); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--navy);
+      margin-bottom: 18px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    h1 span {
+      color: var(--coral);
+      display: inline-block;
+      animation: wiggle 1s 1.2s ease both;
+    }
+
+    @keyframes wiggle {
+      0%,100% { transform: rotate(0deg); }
+      25% { transform: rotate(-4deg); }
+      75% { transform: rotate(4deg); }
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 420px;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    /* Steps */
+    .steps {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 22px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(240,100,73,0.07);
+      border-left: 4px solid transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .step:hover {
+      transform: translateX(6px);
+      box-shadow: 0 8px 32px rgba(240,100,73,0.14);
+      border-left-color: var(--coral);
+    }
+
+    .step:nth-child(2) { border-left-color: var(--amber); }
+    .step:nth-child(2):hover { box-shadow: 0 8px 32px rgba(245,166,35,0.18); }
+    .step:nth-child(3) { border-left-color: var(--teal); }
+    .step:nth-child(3):hover { box-shadow: 0 8px 32px rgba(91,200,193,0.18); }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      background: var(--coral);
+      box-shadow: 0 4px 12px rgba(240,100,73,0.35);
+    }
+
+    .step:nth-child(2) .step-number { background: var(--amber); box-shadow: 0 4px 12px rgba(245,166,35,0.35); }
+    .step:nth-child(3) .step-number { background: var(--teal); box-shadow: 0 4px 12px rgba(91,200,193,0.35); }
+
+    .step-text {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--text);
+      padding-top: 8px;
+    }
+
+    /* Illustration side */
+    .right {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .illustration-wrap {
+      position: relative;
+      width: 320px;
+      height: 320px;
+    }
+
+    .illustration-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: bobble 4s ease-in-out infinite;
+    }
+
+    @keyframes bobble {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    /* Floating shapes */
+    .shape {
+      position: absolute;
+      animation: spin 12s linear infinite;
+    }
+    .shape-1 { top: 0; right: 10px; width: 32px; height: 32px; background: var(--teal); border-radius: 6px; transform: rotate(45deg); animation-direction: reverse; }
+    .shape-2 { bottom: 40px; left: 0; width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--coral); background: transparent; animation-duration: 8s; }
+    .shape-3 { top: 60px; left: 20px; width: 18px; height: 18px; background: var(--amber); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); animation-duration: 16s; }
+
+    @keyframes spin {
+      from { transform: rotate(0deg) translateY(0); }
+      to { transform: rotate(360deg) translateY(-10px); }
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.8rem;
+      color: #bbb;
+      letter-spacing: 0.05em;
+      animation: fadeUp 0.7s 0.9s ease both;
+    }
+
+    @media (max-width: 640px) {
+      .layout { flex-direction: column-reverse; gap: 30px; }
+      .left { text-align: center; }
+      .subtitle { margin: 0 auto; }
+      .step:hover { transform: none; }
+      .illustration-wrap { width: 220px; height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+
+  <div class="container">
+    <div class="layout">
+
+      <div class="left">
+        <div class="badge">🎉 Purchase confirmed</div>
+        <h1>Congrat<span>ulations!</span></h1>
+        <p class="subtitle">
+          You will shortly receive an email with all the access information for your product.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-text">Check the email address you used when making your purchase.</div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-text">Look for the email from Hotmart — if you can't find it, check your spam folder or trash.</div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-text">Follow the steps in the email to access your product and get started!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="illustration-wrap">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+          <img src="ilustra_obrigado.png" alt="Thank you illustration" />
+        </div>
+      </div>
+
+    </div>
+
+    <footer>© 2025 · All rights reserved</footer>
+  </div>
+
+</body>
+</html>
